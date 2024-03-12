@@ -1,19 +1,29 @@
 interface GenerateUrlProps {
   title?: string;
-  year?: number;
+  year?: string;
   type?: string;
+  imdbID?: string;
 }
 
-export const GenerateUrl = ({ title, year, type }: GenerateUrlProps) => {
+export const GenerateUrl = ({
+  title,
+  year,
+  type,
+  imdbID,
+}: GenerateUrlProps) => {
   const baseUrl = process.env.REACT_APP_OMDB_BASE_URL;
   const apiKey = process.env.REACT_APP_OMDB_API_KEY;
 
-  let url = baseUrl + `&apikey=${apiKey}`;
+  if (!baseUrl) return "";
 
-  if (title) url += `?t=${title}`;
+  let url = baseUrl;
+
+  if (title) url += `?s=${title.replaceAll(" ", "+")}`;
   if (year) url += `?y=${year}`;
   if (type) url += `?type=${type}`;
+  if (imdbID) url += `?i=${imdbID}`;
 
-  console.log(url);
+  url += `&apikey=${apiKey}`;
+
   return url;
 };
