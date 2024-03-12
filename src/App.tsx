@@ -1,6 +1,6 @@
 import React from "react";
 import "./assets/stylesheets/App.sass";
-import { Routes, BrowserRouter, Route } from "react-router-dom";
+import { Routes, BrowserRouter, Route, Navigate } from "react-router-dom";
 import { PublicRoute } from "./routers/Public.routes";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/*" element={<PublicRoute />} />
-          <Route path="*" element={<>Not found</>} />
+          <Route path="*" element={<Navigate to="/home" />} />
         </Routes>
       </BrowserRouter>
     </div>
