@@ -21,6 +21,7 @@ const initialSearchValues: SearchValues = {
 
 export const Home: React.FC = () => {
   const [searchUrl, setSearchUrl] = useState(GenerateUrl(initialSearchValues));
+  const [chosenId, setChosenId] = useState<string>("");
   const {
     data: searchData,
     error: searchError,
@@ -51,12 +52,12 @@ export const Home: React.FC = () => {
     event.stopPropagation();
     const movieId = event.currentTarget.id;
 
+    setChosenId(movieId);
     fetchMovieDetails(GenerateUrl({ imdbID: movieId }));
   };
 
   return (
     <div className="home-page">
-      Home
       <div className="home-page__search-bar">
         <SearchBar formik={formik} />
       </div>
@@ -67,6 +68,7 @@ export const Home: React.FC = () => {
             error={searchError}
             loading={searchLoading}
             handleClickItem={handleClickItem}
+            chosenId={chosenId}
           />
         </div>
         <div className="search-result search-result--right search-result__detail">

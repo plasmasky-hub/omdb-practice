@@ -7,6 +7,7 @@ interface SearchListProps {
   error: AxiosError | null;
   loading: boolean;
   handleClickItem: (event: React.MouseEvent) => void;
+  chosenId: string;
 }
 
 export const SearchList: React.FC<SearchListProps> = ({
@@ -14,6 +15,7 @@ export const SearchList: React.FC<SearchListProps> = ({
   error,
   loading,
   handleClickItem,
+  chosenId,
 }) => {
   if (!data)
     return (
@@ -53,14 +55,18 @@ export const SearchList: React.FC<SearchListProps> = ({
           data.Search.map((movie, index) => {
             return (
               <div
-                className="search-list-item"
+                className={`search-list-item ${
+                  chosenId === movie.imdbID && "chosen"
+                }`}
                 key={index}
                 id={movie.imdbID}
                 onClick={handleClickItem}
               >
-                <p>{movie.Title}</p>
-                <p>{movie.Year}</p>
-                <p>{movie.Poster}</p>
+                <img className="poster" src={movie.Poster} alt={movie.Title} />
+                <div className="text">
+                  <p className="title">{movie.Title}</p>
+                  <p className="year">{movie.Year}</p>
+                </div>
               </div>
             );
           })}

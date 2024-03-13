@@ -6,6 +6,48 @@
     padding-top: $search-bar-height
     width: 100%
     max-width: $max-window-size
-
+    margin: auto
     display: flex
     flex-direction: row
+
+  .search-result
+    &--left
+      flex: 2
+    &--right
+      flex: 3
+
+    &__list
+      .search-list
+        max-height: calc( 100vh - $search-bar-height )
+        overflow-y: scroll
+
+        &__total
+
+        &__items
+          .search-list-item
+            display: flex
+            flex-direction: row
+            align-items: center
+            justify-content: start
+            gap: 20px
+            border-bottom: 1px solid grey
+            padding: 10px
+            cursor: pointer
+            transition: background-color 0.3s ease
+            &:hover
+              background-color: #00000011
+            &.chosen
+              background-color: #00000022
+
+            .poster
+              height: 150px
+              max-width: 100px
+              aspect-ratio: auto
+            .text
+              display: flex
+              flex-direction: column
+              align-items: center
+              .title
+                font-weight: bold
+              .year
+                color: grey
