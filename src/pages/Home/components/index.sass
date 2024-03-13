@@ -1,0 +1,61 @@
+.search-bar
+  position: fixed
+  top: 0
+  width: 100%
+  height: $search-bar-height
+  background-color: grey
+
+  color: white
+  font-size: 14px !important
+
+  display: flex
+  align-items: center
+  justify-content: center
+
+  &__form
+    width: 100%
+    max-width: $max-window-size
+    margin: 0 auto
+    height: 100%
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: center
+    gap: 15px
+
+    .form-item
+      height: 100%
+      padding-top: 10px
+
+      &__title
+        flex: 2
+        .MuiInputBase-root.MuiOutlinedInput-root
+          color: white
+
+      &__year, &__type
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        justify-content: start
+        gap: 5px
+
+        > label
+          text-transform: uppercase
+
+      &__type
+        .MuiFormGroup-root .MuiFormControlLabel-root
+          .MuiRadio-root span
+            color: white
+          .MuiFormControlLabel-label
+            font-size: 12px
+
+      &__actions
+        padding: 0
+        .action-wrapper
+          display: flex
+          align-items: center
+          height: 100%
+
+          .MuiButtonBase-root.MuiButton-root
+            background-color: white
+            color: black

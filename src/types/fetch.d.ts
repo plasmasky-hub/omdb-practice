@@ -1,10 +1,3 @@
-declare enum MediaType {
-  "",
-  "movie",
-  "series",
-  "episode",
-}
-
 declare type SearchDataType = {
   Search?: MovieBasicData[];
   Error?: string;

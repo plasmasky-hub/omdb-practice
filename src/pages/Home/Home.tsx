@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useFormik } from "formik";
+import { FormikProps, useFormik } from "formik";
 import { useFetch } from "../../Api/Fetch";
 import { GenerateUrl } from "../../utils/GenerateUrl";
 import { SearchList } from "./components/SearchList";
 import { MovieDetails } from "./components/MovieDetails";
+import { SearchBar } from "./components/SearchBar";
+import { MediaType } from "../../enums/enums";
 
-const initialSearchValues = {
+export interface SearchValues {
+  title: string;
+  year: string;
+  type: MediaType;
+}
+
+const initialSearchValues: SearchValues = {
   title: "star wars",
   year: "",
-  type: "",
+  type: MediaType.default,
 };
 
 export const Home: React.FC = () => {
@@ -27,7 +35,7 @@ export const Home: React.FC = () => {
     fetch: fetchMovieDetails,
   } = useFetch<MovieDetailsData>();
 
-  const formik = useFormik({
+  const formik: FormikProps<SearchValues> = useFormik({
     initialValues: initialSearchValues,
     onSubmit(values) {
       setSearchUrl(GenerateUrl(values));
@@ -50,41 +58,7 @@ export const Home: React.FC = () => {
     <div className="home-page">
       Home
       <div className="home-page__search-bar">
-        <div className="search-bar">
-          Search bar
-          <form className="search-bar__form" onSubmit={formik.handleSubmit}>
-            <div className="form__keyword">
-              <label>Title</label>
-              <input
-                id="title"
-                name="title"
-                value={formik.values.title}
-                onChange={formik.handleChange}
-              />
-            </div>
-            <div className="form__year">
-              <label>Year</label>
-              <input
-                id="year"
-                name="year"
-                value={formik.values.year}
-                onChange={formik.handleChange}
-              />
-            </div>
-            <div className="form__type">
-              <label>Type</label>
-              <input
-                id="type"
-                name="type"
-                value={formik.values.type}
-                onChange={formik.handleChange}
-              />
-            </div>
-            <div className="form__actions">
-              <button type="submit">Search</button>
-            </div>
-          </form>
-        </div>
+        <SearchBar formik={formik} />
       </div>
       <div className="home-page__search-result">
         <div className="search-result search-result--left search-result__list">

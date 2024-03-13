@@ -50,16 +50,14 @@ export const MovieDetails: React.FC<MovieDetailsProps> = ({
       <p>{data.Runtime}</p>
       <p>{data.Actors}</p>
       <p>{data.Plot}</p>
-      <p>
-        {data.Ratings.map((rateMedia, index) => {
-          return (
-            <div key={index}>
-              <p>{rateMedia.Source}</p>
-              <p>{rateMedia.Value}</p>
-            </div>
-          );
-        })}
-      </p>
+      {data.Ratings.map((rateMedia, index) => {
+        return (
+          <div key={index}>
+            <p>{rateMedia.Source}</p>
+            <p>{rateMedia.Value}</p>
+          </div>
+        );
+      })}
     </div>
   );
 };
