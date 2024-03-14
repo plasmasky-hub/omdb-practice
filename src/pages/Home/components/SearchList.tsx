@@ -64,7 +64,7 @@ export const SearchList: React.FC<SearchListProps> = ({
               >
                 <img className="poster" src={movie.Poster} alt={movie.Title} />
                 <div className="text">
-                  <p className="title">{movie.Title}</p>
+                  <h4 className="title">{movie.Title}</h4>
                   <p className="year">{movie.Year}</p>
                 </div>
               </div>

@@ -71,7 +71,7 @@ export const Home: React.FC = () => {
             chosenId={chosenId}
           />
         </div>
-        <div className="search-result search-result--right search-result__detail">
+        <div className="search-result search-result--right search-result__details">
           <MovieDetails
             data={movieDetailsData}
             error={movieDetailsError}

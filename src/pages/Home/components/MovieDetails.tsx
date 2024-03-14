@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AxiosError } from "axios";
-import { CircularProgress } from "@mui/material";
+import { Button, CircularProgress, Divider } from "@mui/material";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 
 interface MovieDetailsProps {
   data: MovieDetailsData | null;
@@ -13,10 +15,20 @@ export const MovieDetails: React.FC<MovieDetailsProps> = ({
   error,
   loading,
 }) => {
+  const [inWatchList, setInWatchList] = useState(false);
+
+  const handleWatchList = () => {
+    setInWatchList(!inWatchList);
+  };
+
+  useEffect(() => {
+    setInWatchList(false);
+  }, [data]);
+
   if (!data)
     return (
       <div className="movie-details movie-details--empty">
-        <p>No Data</p>
+        <p>Pick a movie on list to see details!</p>
       </div>
     );
 
@@ -43,21 +55,55 @@ export const MovieDetails: React.FC<MovieDetailsProps> = ({
 
   return (
     <div className="movie-details">
-      <p>{data.Title}</p>
-      <p>{data.Rated}</p>
-      <p>{data.Year}</p>
-      <p>{data.Genre}</p>
-      <p>{data.Runtime}</p>
-      <p>{data.Actors}</p>
-      <p>{data.Plot}</p>
-      {data.Ratings.map((rateMedia, index) => {
-        return (
-          <div key={index}>
-            <p>{rateMedia.Source}</p>
-            <p>{rateMedia.Value}</p>
+      <div className="movie-info">
+        <div className="movie-info__poster">
+          <img src={data.Poster} alt={data.Title} />
+        </div>
+        <div className="movie-info__text">
+          <div className="watchlist-wrapper">
+            <Button
+              className="watchlist"
+              variant={inWatchList ? "contained" : "outlined"}
+              startIcon={
+                inWatchList ? <BookmarkIcon /> : <BookmarkBorderIcon />
+              }
+              onClick={handleWatchList}
+            >
+              Watchlist
+            </Button>
           </div>
-        );
-      })}
+          <h2 className="title">{data.Title}</h2>
+          <div className="details-wrapper">
+            <p className="rated">{data.Rated}</p>
+            <p className="year">{data.Year}</p>
+            <div className="dot" />
+            <p className="genre">{data.Genre}</p>
+            <div className="dot" />
+            <p className="runtime">{data.Runtime}</p>
+          </div>
+          <p className="actors">{data.Actors}</p>
+        </div>
+      </div>
+      <Divider flexItem />
+      <div className="movie-plot">
+        <p className="plot">{data.Plot}</p>
+      </div>
+      <Divider flexItem />
+      <div className="movie-ratings">
+        {data.Ratings.map((rateMedia, index) => {
+          return (
+            <>
+              <div className="rating-block" key={index}>
+                <p className="value">{rateMedia.Value}</p>
+                <p className="source">{rateMedia.Source}</p>
+              </div>
+              {index !== data.Ratings.length - 1 && (
+                <Divider orientation="vertical" variant="middle" flexItem />
+              )}
+            </>
+          );
+        })}
+      </div>
     </div>
   );
 };
